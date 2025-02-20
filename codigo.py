@@ -9,43 +9,27 @@ clock=pygame.time.Clock()
 
 # VARIÁVEIS
 inicio_bola= (200, 560)
-vel_bola= 7
+vel_bola= 4
 
 # BOLA
 class BolaSprite(pygame.sprite.Sprite):
-    def __init__(self, x,y):
-        super().__init__()
-        self.image=pygame.Surface((50,50), pygame.SRCALPHA)
-        pygame.draw.circle(self.image,(235,255,20),(25,25), 15)
-        self.rect= self.image.get_rect(topleft=(x,y))
-    
-    def colisao(self, new_rect):
-        return pygame.sprite.spritecollideany(self, paredes)
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image=pygame.Surface((35,35), pygame.SRCALPHA)
+        pygame.draw.circle(self.image, (235,255,20),(17.5,17.5), 8.75)
+        self.rect=self.image.get_rect(topleft=inicio_bola)
 
-    def mover_para_esq(self, new_rect):
-        new_rect.x -= vel_bola
-    def mover_para_di(self, new_rect):
-        new_rect.x += vel_bola 
-    def mover_para_cima(self, new_rect):
-        new_rect.y -= vel_bola
-    def mover_para_baixo(self, new_rect):
-        new_rect.y += vel_bola
+    def mover_esq(self):
+        self.rect.x-=vel_bola
+    def mover_di(self):
+        self.rect.x+=vel_bola
+    def mover_cima(self):
+        self.rect.y-=vel_bola
+    def mover_baixo(self):
+        self.rect.y+=vel_bola
 
-    def mov(self, keys):
-        new_rect= self.rect.copy()
-        if keys[pygame.K_LEFT]:
-            self.mover_para_esq(new_rect)
-        if keys[pygame.K_RIGHT]:
-            self.mover_para_di(new_rect)
-        if keys[pygame.K_UP]:
-            self.mover_para_cima(new_rect)
-        if keys[pygame.K_DOWN]:
-            self.mover_para_baixo(new_rect)
-
-        if not self.colisao(new_rect):
-            self.rect= new_rect
-        else:
-            self.rect.topleft= inicio_bola
+    def reseta_pos(self):
+        self.rect.topleft=inicio_bola
 
 # LABIRINTO
 class ParedesSprite(pygame.sprite.Sprite):
@@ -64,7 +48,7 @@ class RedSprite(pygame.sprite.Sprite):
         self.rect= self.image.get_rect(topleft=(x,y))
 
 # SPRITES
-bola = BolaSprite(inicio_bola[0], inicio_bola[1])
+bola = BolaSprite()
 fim= RedSprite(440,40,80,40)
 
 paredes= pygame.sprite.Group(
@@ -87,12 +71,22 @@ while running:
             running= False
 
     keys= pygame.key.get_pressed()
-    bola.update(keys, paredes)
+    if keys[pygame.K_LEFT]:
+        bola.mover_esq()
+    if keys[pygame.K_RIGHT]:
+        bola.mover_di()
+    if keys[pygame.K_UP]:
+        bola.mover_cima()
+    if keys[pygame.K_DOWN]:
+        bola.mover_baixo()
+
+    if pygame.sprite.spritecollide(bola, paredes, False):
+        bola.reseta_pos()
 
     if pygame.sprite.collide_rect(bola,fim):
         running= False
 
-    janela.fill((95,255,202))
+    janela.fill((12, 192, 223))
     todos_sprites.draw(janela)
     pygame.display.flip()
     clock.tick(60)
