@@ -11,6 +11,52 @@ clock=pygame.time.Clock()
 inicio_bola= (200, 560)
 vel_bola= 4
 
+# FONTES
+fonte_titulo = pygame.font.Font(None, 80)
+fonte_texto = pygame.font.Font(None, 40)
+
+# TELA INICIAL
+def tela_inicial():
+    running= True
+    while running:
+        janela.fill((0, 0, 0))
+        
+        titulo= fonte_titulo.render("LABYRINTHUS", True, (12, 192, 223))
+        enter= fonte_texto.render("Aperte ENTER para iniciar", True, (255, 255, 255))
+
+        janela.blit(titulo, (320 - titulo.get_width()// 2, 270))
+        janela.blit(enter, (320 - enter.get_width()// 2, 400))
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                pygame.quit()
+
+            if event.type==pygame.KEYDOWN and event.key==pygame.K_RETURN:
+                running = False
+
+# TELA FINAL
+def tela_final():
+    rodando = True
+    while rodando:
+        janela.fill((0, 0, 0))
+
+        titulo = fonte_titulo.render("PARABÉNS!", True, (235, 255, 20))
+        mensagem = fonte_texto.render("Você zerou o jogo!", True, (255,255,255))
+        
+        janela.blit(titulo, (320 - titulo.get_width() // 2, 270)) 
+        janela.blit(mensagem, (320 - mensagem.get_width() // 2, 330))    
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                pygame.quit()
+                exit()
+            if event.type==pygame.KEYDOWN and event.key==pygame.K_RETURN:
+                return
+
 # BOLA
 class BolaSprite(pygame.sprite.Sprite):
     def __init__(self):
@@ -63,7 +109,9 @@ paredes= pygame.sprite.Group(
 
 todos_sprites = pygame.sprite.Group([paredes, fim, bola])
 
-# LOOPING
+tela_inicial()
+
+# LOOPING DO JOGO
 running= True
 while running:
     for event in pygame.event.get():
@@ -90,4 +138,6 @@ while running:
     todos_sprites.draw(janela)
     pygame.display.flip()
     clock.tick(60)
+
+tela_final()
 pygame.quit()
