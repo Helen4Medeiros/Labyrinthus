@@ -1,9 +1,5 @@
 # Labyrinthus 
 # Componentes: Kelvin e Helena
-# Professor: Alexandre
-
-# Labyrinthus 
-# Componentes: Kelvin e Helena
 # Professor: Alexandre Gomes de Lima
 
 import pygame
@@ -80,7 +76,6 @@ class BolaSprite(pygame.sprite.Sprite):
         self.rect.y-=vel_bola
     def mover_baixo(self):
         self.rect.y+=vel_bola
-
     def reseta_pos(self):
         self.rect.topleft=inicio_bola
 
@@ -149,3 +144,4 @@ while running:
 
 tela_final()
 pygame.quit()
+
