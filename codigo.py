@@ -5,12 +5,11 @@
 import pygame
 pygame.init()
 janela=pygame.display.set_mode((640,640))
-pygame.display.set_caption("Labyrinthus")
 clock=pygame.time.Clock()
 
 # VARIÁVEIS
 inicio_bola_um= (200, 560)
-inicio_bola_dois= (500, 600)
+inicio_bola_dois= (520, 600)
 vel_bola= 4
 fase=1
 
