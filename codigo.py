@@ -10,7 +10,7 @@ clock=pygame.time.Clock()
 
 # VARIÁVEIS
 inicio_bola_um= (200, 560)
-inicio_bola_dois= (520, 600)
+inicio_bola_dois= (500, 600)
 vel_bola= 4
 fase=1
 
