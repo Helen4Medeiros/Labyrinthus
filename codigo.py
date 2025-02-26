@@ -9,13 +9,13 @@ clock=pygame.time.Clock()
 
 # VARIÁVEIS
 inicio_bola_um= (200, 560)
-inicio_bola_dois= (520, 600)
+inicio_bola_dois= (490, 560)
 vel_bola= 4
 fase=1
 
 # FONTES
 fonte_titulo = pygame.font.Font("BryndanWriteBook-nGPM.ttf", 80)
-fonte_texto = pygame.font.Font("ARIAL.TTF", 20)
+fonte_texto = pygame.font.Font("ARIAL.TTF", 26)
 
 # TELA INICIAL
 def tela_inicial():
@@ -30,7 +30,7 @@ def tela_inicial():
 
         janela.blit(ponto, (300, 250))
         janela.blit(titulo, (320 - titulo.get_width()// 2, 270))
-        janela.blit(enter, (320 - enter.get_width()// 2, 400))
+        janela.blit(enter, (320 - enter.get_width()// 2, 500))
 
         pygame.display.flip()
 
@@ -52,7 +52,7 @@ def tela_final():
         mensagem2= fonte_texto.render('Aperte ENTER para fechar o jogo', True, (255, 255, 255))
 
         janela.blit(titulo, (320 - titulo.get_width() // 2, 270)) 
-        janela.blit(mensagem, (320 - mensagem.get_width() // 2, 380))    
+        janela.blit(mensagem, (320 - mensagem.get_width() // 2, 350))    
         janela.blit(mensagem2, (320 - mensagem2.get_width() // 2, 500))   
 
         pygame.display.flip()
